@@ -1,0 +1,87 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+<div th:replace="~{fragments/fragments :: head}"></div>
+
+<title>Pizzeria</title>
+</head>
+
+<body>
+
+	<div th:replace="~{fragments/navbar :: navbar('pizza')}"></div>
+	<div class="container py-3">
+		<div class="row">
+		
+			<div class="col-md-2">
+				<a class="btn btn-success" th:href="@{/pizza/create}"><i class="fas fa-plus"></i> </a>
+			</div>
+			<div class="col-md-10">
+				<form method="get" th:action="@{/pizza}" >
+					<div class="input-group">
+						<input th:value="${keyword}" type="search" name="keyword"
+							placeholder="Search pizza" class="form-control">
+						<button class="btn btn-primary" type="submit">
+							<i class="fas fa-search"></i>
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+
+
+		<br/>
+		<div class="row">
+			<div class="col">
+				<table th:if="${!pizzas.isEmpty()}" class="table table-striped">
+					<tr>
+						<th>
+						</th>
+						<th>
+							Name
+						</th>
+						<th>
+							Description
+						</th>
+						<th>
+							Price
+						</th>
+						
+						<th> </th>
+					</tr>
+					
+					<tr th:each="pizza : ${pizzas}">
+						<td>
+							<img th:src="@{ ${pizza.photoUrl} }" th:alt="${pizza.name}" 
+							height="60px" width="60px"> 
+						</td>
+						<td>
+							<p th:text="${pizza.name}"></p>
+						</td>
+						<td>
+							<p th:text="${pizza.description}"></p>
+						</td>
+						<td>
+							<p th:text="|${#numbers.formatDecimal(pizza.price, 0, 2, 'COMMA')} $|"></p>
+						</td>
+						<td>
+							<a th:href="@{|/pizza/show/${pizza.id}|}" class="btn btn-primary"><i class="fas fa-pizza-slice"></i></a>
+						</td>
+					</tr>
+					
+				</table>
+				
+				
+				
+				<div th:if="${pizzas.isEmpty()}" class="alert alert-warning">
+					<span> There are no pizzas in database </span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<div th:replace="~{fragments/fragments :: scripts}"></div>
+</body>
+</html>
