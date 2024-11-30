@@ -4,15 +4,15 @@
 
 <div th:replace="~{fragments/fragments :: head}"></div>
 
-<title>Create new pizza</title>
+<title>Edit pizza</title>
 </head>
 
 <body>
 
 	<div th:replace="~{fragments/navbar :: navbar('pizza')}"></div>
 	<div class="container py-3">
-		<form id="pizza-form" method="post" th:action="@{/pizza/store}"
-			th:object="${pizza}">
+		<form id="pizza-form" method="post"
+			th:action="@{|/pizza/edit/${pizza.id}|}" th:object="${pizza}">
 			<div class="row">
 				<div class="col-md-6">
 					<label class="form-label" for="name">Name</label> <input
@@ -54,6 +54,7 @@
 					</div>
 				</div>
 			</div>
+			
 			<div class="row">
 				<h5>Ingredients</h5>
 				<div class="col-md-12">
@@ -68,15 +69,12 @@
 						
 				</div>
 			</div>
-
 			<div class="row">
 				<button class="btn btn-primary" type="submit">Save</button>
 			</div>
 		</form>
 
 	</div>
-
-
 
 	<div th:replace="~{fragments/fragments :: scripts}"></div>
 </body>

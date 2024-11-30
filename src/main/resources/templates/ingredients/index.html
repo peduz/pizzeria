@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+<div th:replace="~{fragments/fragments :: head}"></div>
+
+<title>Ingredients</title>
+</head>
+
+<body>
+
+	<div th:replace="~{fragments/navbar :: navbar('ingredients')}"></div>
+	<div class="container py-3">
+		<div class="row">
+		
+			<div class="col-md-2">
+				<form method="post" th:action="@{/ingredients/store}" th:object="${ingredient}">
+					<input placeholder="Ingredient name"
+							type="text" th:field="${ingredient.name}" class="form-control"
+							th:errorClass="is-invalid">
+					
+					<ul>
+						<li th:each="err : ${#fields.allErrors()}" th:text="${err}">
+						</li>
+					</ul>
+					<button type="submit" class="btn btn-success" ><i class="fas fa-plus"></i>Add</button>
+				</form>
+			</div>
+		</div>
+
+
+		<br/>
+		<div class="row">
+			<div class="col">
+				<table th:if="${!ingredients.isEmpty()}" class="table table-striped">
+					<tr>
+						<th>
+							Name
+						</th>
+						
+						<th> </th>
+					</tr>
+					
+					<tr th:each="ingredient : ${ingredients}">
+						<td>
+							<p th:text="${ingredient.name}"></p>
+						</td>
+						<td>
+							<div class="d-flex">
+							<form th:action="@{|/ingredients/delete/${ingredient.id}|}" 
+									method="post" class="m-2"> 
+								<button class="btn btn-danger" type="submit" 
+									onclick="return confirm('Are you sure?');">
+									<i class="fas fa-trash"></i></button>
+							</form>
+							</div>
+						</td>
+					</tr>
+					
+				</table>
+				
+				
+				
+				<div th:if="${ingredients.isEmpty()}" class="alert alert-warning">
+					<span> There are no ingredients in database </span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<div th:replace="~{fragments/fragments :: scripts}"></div>
+</body>
+</html>

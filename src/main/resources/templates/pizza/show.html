@@ -20,10 +20,52 @@
 				<dl>
 					<dt>Description</dt>
 					<dd th:text="*{description}"></dd>
+					<dt>Ingredients</dt>
+					<dd class="list-group-orizontal"> 
+						<span class="list-group-item border border-0" 
+								th:each="ingredient : *{ingredients}" th:text="${ingredient.name}" ></span> 
+					</dd>
 					<dt>Price</dt>
 					<dd th:text="|${#numbers.formatDecimal(pizza.price, 0, 2, 'COMMA')} $|"></dd>
 				</dl>
 			</div>
+		</div>
+		
+		<a class="btn btn-success" th:href="@{|/pizza/${pizza.id}/specialOffers|}"> 
+			Create special offer
+		</a>
+		
+		<table th:unless="${pizza.specialOffers.isEmpty()}" class="col-12">
+			<thead>
+				<tr>
+					<th>Title</th>
+					<th>Starting date</th>
+					<th>Ending date</th>
+					<th></th>
+				</tr>
+			</thead>
+			
+			<tbody>
+				<tr th:each="specialOffer : ${pizza.specialOffers}">
+					<td th:text="${specialOffer.title}">
+					</td>
+					<td th:text="${specialOffer.startingDate}">
+					</td>
+					<td  th:text="${specialOffer.endingDate}">
+					</td>
+					<td>
+						<a class="btn btn-primary" 
+							th:href="@{|/specialOffers/edit/${specialOffer.id}|}">
+							<i class="fas fa-edit"></i> 
+						</a>
+					</td>
+				</tr>
+			
+			</tbody>
+		</table>
+		
+		<div th:if="${pizza.specialOffers.isEmpty()}" class="col-12">
+			There's no special offer
 		</div>
 	</div>
 

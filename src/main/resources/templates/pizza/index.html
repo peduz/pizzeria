@@ -65,7 +65,15 @@
 							<p th:text="|${#numbers.formatDecimal(pizza.price, 0, 2, 'COMMA')} $|"></p>
 						</td>
 						<td>
-							<a th:href="@{|/pizza/show/${pizza.id}|}" class="btn btn-primary"><i class="fas fa-pizza-slice"></i></a>
+							<div class="d-flex">
+							<a th:href="@{|/pizza/show/${pizza.id}|}" class="btn btn-primary m-2"><i class="fas fa-pizza-slice"></i></a>
+							<a th:href="@{|/pizza/edit/${pizza.id}|}" class="btn btn-primary m-2"><i class="fas fa-edit"></i></a>
+							<form th:action="@{|/pizza/delete/${pizza.id}|}" method="post" class="m-2"> 
+								<button class="btn btn-danger" type="submit" 
+									onclick="return confirm('Are you sure?');">
+									<i class="fas fa-trash"></i></button>
+							</form>
+							</div>
 						</td>
 					</tr>
 					
