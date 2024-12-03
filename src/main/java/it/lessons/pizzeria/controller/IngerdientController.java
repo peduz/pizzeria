@@ -33,20 +33,20 @@ public class IngerdientController {
 	}
 	
 	@PostMapping("/store")
-	public String store(@Valid @ModelAttribute Ingredient ingredient, 
+	public String store(@Valid @ModelAttribute Ingredient ingredientForm, 
 			BindingResult bindingResult, RedirectAttributes redirectAttribute, Model model) {
 		
-		if(ingredientRepository.findByName(ingredient.getName()).isPresent()) {
+		if(ingredientRepository.findByName(ingredientForm.getName()).isPresent()) {
 			bindingResult.addError(new ObjectError("unique", "This ingredient already exists"));
 		}
 		
 		if(bindingResult.hasErrors()) {
 			model.addAttribute("ingredients", ingredientRepository.findAll());
-			model.addAttribute("ingredient", ingredient);
+			model.addAttribute("ingredient", ingredientForm);
 			return "ingredients/index";		
 		}
 		
-		ingredientRepository.save(ingredient);
+		ingredientRepository.save(ingredientForm);
 		
 		return "redirect:/ingredients";
 	}

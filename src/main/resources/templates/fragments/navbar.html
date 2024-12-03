@@ -22,11 +22,24 @@
 							Pizza 
 						</a>
 					</li>
-					<li class="nav-item">
+					<li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
 						<a class="nav-link active"
 							aria-current="page" th:href="@{/ingredients}"
 							th:classappend="${pagename == 'ingredients'} ? active : not-active">
 							Ingredients 
+						</a>
+					</li>
+				</ul>
+				<ul class="navbar-nav align-items-baseline">				
+					<li class="nav-item" >
+						<a class="nav-link active disabled" sec:authentication="name"
+							aria-current="page" th:href="@{#}">
+						</a>
+					</li>
+					<li class="nav-item" >
+						<a class="nav-link active"
+							aria-current="page" th:href="@{/logout}">
+							Logout 
 						</a>
 					</li>
 				</ul>

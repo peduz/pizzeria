@@ -31,7 +31,7 @@
 			</div>
 		</div>
 		
-		<a class="btn btn-success" th:href="@{|/pizza/${pizza.id}/specialOffers|}"> 
+		<a class="btn btn-success" th:href="@{|/pizza/${pizza.id}/specialOffers|}" sec:authorize="hasAuthority('ADMIN')"> 
 			Create special offer
 		</a>
 		
@@ -54,7 +54,7 @@
 					<td  th:text="${specialOffer.endingDate}">
 					</td>
 					<td>
-						<a class="btn btn-primary" 
+						<a class="btn btn-primary" sec:authorize="hasAuthority('ADMIN')"
 							th:href="@{|/specialOffers/edit/${specialOffer.id}|}">
 							<i class="fas fa-edit"></i> 
 						</a>
